@@ -16,18 +16,24 @@ let playBtn=document.getElementById("play_button")
 let userInput=document.getElementById("user_input")
 let resultArea=document.getElementById("result_area")
 let resultAreaImg = document.querySelector(".main-img");//이미지 넣기
+let history=[]//이미 쓰인 기록 남기기
+//10번의 기회를 다 쓰면 게임이 끝난다.(더이상 추측 불가, 버튼이 disabled)
+let chances=10
+let gameOver=false
+let chanceArea=document.getElementById("chance_area")
 
 playBtn.addEventListener("click",play)
 
 function play(){
     let userValue=userInput.value;
-
+    //유저가 1~100 범위 밖에 숫자를 입력시 알려준다. 기회를 감소시키지 않는다.
     if(userValue<1 || userValue>100){
         resultArea.textContent="1~100까지 숫자를 선택해보세요!"
         resultAreaImg.src ="images/retry.png";        
         return;
-    }//유저가 1~100 범위 밖에 숫자를 입력시 알려준다. 기회를 감소시키지 않는다.
+    }
     
+    //유저가 이미 입력한 숫자를 또 입력하면, 알려준다. 기회를 감소시키지 않는다.
     if(history.includes(userValue)){
         resultArea.textContent="이미 입력한 숫자입니다. 다른 숫자를 입력해주세요."
         resultAreaImg.src ="images/same.png";        
@@ -82,12 +88,6 @@ function reset(){
     "images/start.png";
 }
 
-//10번의 기회를 다 쓰면 게임이 끝난다.(더이상 추측 불가, 버튼이 disabled)
-let chances=10
-let gameOver=false
-let chanceArea=document.getElementById("chance_area")
- //유저가 이미 입력한 숫자를 또 입력하면, 알려준다. 기회를 감소시키지 않는다.
-let history=[]
 
 // 유저가 input창에 입력시에 새로운 칸으로 노출시키기
 userInput.addEventListener("focus",function(){userInput.value=""})
